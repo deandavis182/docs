@@ -28,13 +28,13 @@ To begin using the Qanapi web app/dashboard, you need to create a new account. F
 
 ### **Access the Registration Page:**
 
-* Visit the registration page by navigating to [https://kbosscloud.com/register/](https://kbosscloud.com/register/).
+* Visit the registration page by navigating to [https://qanapi.com/try-qanapi](https://qanapi.com/try-qanapi).
 
 ### **Fill Out the Registration Form:**
 
 * **Company:** Enter the name of your company in the "Company" field.  
 * **Full Name:** Provide your full name in the "Full name" field.  
-* **Domain:** Choose a unique subdomain for your tenant instance. This subdomain will be followed by `.kbosscloud.com`. The domain can only contain lowercase letters with no numbers or special characters.  
+* **Domain:** Choose a unique subdomain for your tenant instance. This subdomain will be followed by `.qanapi.com`. The domain can only contain lowercase letters with no numbers or special characters.  
 * **Email Address:** Enter your business email address.  
 * **Password:** Create a secure password.  
 * **Confirm Password:** Re-enter the password to confirm it.
@@ -131,15 +131,15 @@ The **Data Proxies** tab is where you find the endpoint URL specific to your pro
 
 **Required Headers**
 
-- **`X-KBOSS-Authorization`**: Your API authorization token.
-- **`x-kboss-mode`**: Specify `encrypt` for encryption and `decrypt` for decryption.
-- **`X-KBOSS-Fields`**: Comma-separated list of fields in the JSON payload to be encrypted or decrypted.
+- **`X-QANAPI-Authorization`**: Your API authorization token.
+- **`x-QANAPI-mode`**: Specify `encrypt` for encryption and `decrypt` for decryption.
+- **`X-QANAPI-Fields`**: Comma-separated list of fields in the JSON payload to be encrypted or decrypted.
 - **`Content-Type`**: Set to `application/json` for JSON payloads.
 
 **Optional Headers**
 
-- **`X-KBOSS-Destination`**: A URL to forward the request to after encryption instead of returning the encrypted data to the client. This is useful for workflows where the encrypted data needs to be sent to another service.
-- **`X-KBOSS-Classification`**: The classification level of the data (e.g., `cui`, `health`, `financial`).
+- **`X-QANAPI-Destination`**: A URL to forward the request to after encryption instead of returning the encrypted data to the client. This is useful for workflows where the encrypted data needs to be sent to another service.
+- **`X-QANAPI-Classification`**: The classification level of the data (e.g., `cui`, `health`, `financial`).
 
 
 #### **Encrypting Data**
@@ -147,11 +147,11 @@ The **Data Proxies** tab is where you find the endpoint URL specific to your pro
 Below is an example of how to use the Smart Data Proxy to encrypt data.
 
 ```bash
-curl --location 'https://customer-subdomain.kbosscloud.com/proxy/xxxxxxx' \
---header 'X-KBOSS-Authorization: cd_xxxxxxxxxxxxxxxxxx' \
---header 'x-kboss-mode: encrypt' \
---header 'X-KBOSS-Fields: title,body' \
---header 'X-KBOSS-Classification: cui' \
+curl --location 'https://customer-subdomain.qanapi.com/proxy/xxxxxxx' \
+--header 'X-QANAPI-Authorization: cd_xxxxxxxxxxxxxxxxxx' \
+--header 'x-QANAPI-mode: encrypt' \
+--header 'X-QANAPI-Fields: title,body' \
+--header 'X-QANAPI-Classification: cui' \
 --header 'Content-Type: application/json' \
 --data '{
     "userId": 1,
@@ -166,11 +166,11 @@ curl --location 'https://customer-subdomain.kbosscloud.com/proxy/xxxxxxx' \
 Below is an example of how to use the Smart Data Proxy to decrypt data.
 
 ```bash
-curl --location 'https://customer-subdomain.kbosscloud.com/proxy/xxxxxxx' \
---header 'X-KBOSS-Authorization: cd_xxxxxxxxxxxxxxxxxx' \
---header 'x-kboss-mode: decrypt' \
---header 'X-KBOSS-Fields: title,body' \
---header 'X-KBOSS-Classification: cui' \
+curl --location 'https://customer-subdomain.qanapi.com/proxy/xxxxxxx' \
+--header 'X-QANAPI-Authorization: cd_xxxxxxxxxxxxxxxxxx' \
+--header 'x-QANAPI-mode: decrypt' \
+--header 'X-QANAPI-Fields: title,body' \
+--header 'X-QANAPI-Classification: cui' \
 --header 'Content-Type: application/json' \
 --data '{
   "userId":1,
@@ -182,15 +182,15 @@ curl --location 'https://customer-subdomain.kbosscloud.com/proxy/xxxxxxx' \
 
 #### **Forwarding Encrypted Data**
 
-To forward the encrypted data to another service, use the `X-KBOSS-Destination` header with the desired destination URL.
+To forward the encrypted data to another service, use the `X-QANAPI-Destination` header with the desired destination URL.
 
 ```bash
-curl --location 'https://customer-subdomain.kbosscloud.com/proxy/xxxxxxx' \
---header 'X-KBOSS-Authorization: cd_xxxxxxxxxxxxxxxxxx' \
---header 'x-kboss-mode: encrypt' \
---header 'X-KBOSS-Fields: title,body' \
---header 'X-KBOSS-Classification: cui' \
---header 'X-KBOSS-Destination: https://example.com/receive-encrypted-data' \
+curl --location 'https://customer-subdomain.qanapi.com/proxy/xxxxxxx' \
+--header 'X-QANAPI-Authorization: cd_xxxxxxxxxxxxxxxxxx' \
+--header 'x-QANAPI-mode: encrypt' \
+--header 'X-QANAPI-Fields: title,body' \
+--header 'X-QANAPI-Classification: cui' \
+--header 'X-QANAPI-Destination: https://example.com/receive-encrypted-data' \
 --header 'Content-Type: application/json' \
 --data '{
     "userId": 1,
